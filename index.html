@@ -55,6 +55,7 @@
       <option value="2.13">CX - R$ 2,13</option>
       <option value="0.00">VAZIO - R$ 0,00</option>
     </select>
+    <input type="number" id="margemLucro" placeholder="Margem de Lucro (%)" step="0.01" value="15">
     <button id="calcular">Calcular Preço de Venda</button>
     <div class="result" id="resultado"></div>
     <div class="details" id="detalhes"></div>
@@ -64,6 +65,7 @@
     document.getElementById('calcular').addEventListener('click', function() {
       let custo = parseFloat(document.getElementById('custo').value);
       let embalagem = parseFloat(document.getElementById('embalagem').value);
+      let margemLucro = parseFloat(document.getElementById('margemLucro').value) / 100;
 
       if (isNaN(custo)) {
         document.getElementById('resultado').innerText = 'Por favor, insira um valor válido.';
@@ -79,7 +81,6 @@
       const taxaShopee = 0.20;
       const comissao = 0.01;
       const imposto = 0.085;
-      const margemLucro = 0.15;
 
       // Fórmula para o preço de venda
       let precoVenda = (custo + custosFixos) / (1 - (taxaShopee + comissao + imposto + margemLucro));
@@ -94,7 +95,7 @@
       let detalheTaxaShopee = `Taxa Shopee (20%): R$ ${(taxaShopee * precoVenda).toFixed(2)}`;
       let detalheComissao = `Comissão (1%): R$ ${(comissao * precoVenda).toFixed(2)}`;
       let detalheImposto = `Imposto (8,5%): R$ ${(imposto * precoVenda).toFixed(2)}`;
-      let detalheMargemLucro = `Margem de Lucro (15%): R$ ${(margemLucro * precoVenda).toFixed(2)}`;
+      let detalheMargemLucro = `Margem de Lucro (${(margemLucro * 100).toFixed(2)}%): R$ ${(margemLucro * precoVenda).toFixed(2)}`;
 
       document.getElementById('resultado').innerText = `Preço de Venda: R$ ${precoVenda.toFixed(2)}`;
       document.getElementById('detalhes').innerHTML = `
